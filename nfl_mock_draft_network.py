@@ -4,6 +4,7 @@ from pyvis.network import Network
 from pyvis import network as net
 import streamlit.components.v1 as components
 import networkx as nx
+import plotly_express as px
 
 st.set_page_config(
     page_title='NFL Mock Draft Database',
