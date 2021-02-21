@@ -8,10 +8,12 @@ import networkx as nx
 st.set_page_config(
     page_title='NFL Mock Draft Network',
     page_icon='football',
-    # layout='wide',
+    layout='wide',
     initial_sidebar_state='collapsed')
 
-st.title('NFL Mock Draft Network')
+# st.title('NFL Mock Draft Network')
+st.markdown("<h1 style='text-align: center; color: black;'>NFL Mock Draft Network</h1>", unsafe_allow_html=True)
+
 
 df_i = pd.read_csv('https://raw.githubusercontent.com/aaroncolesmith/nfl_mock_draft_db/main/nfl_mock_draft_db.csv')
 num=10
@@ -37,8 +39,8 @@ d['player_pick_str'] = d['player']+ ' - '+d['cnt'].astype('str')+' times'
 
 nt = Network(directed=False,
              notebook=True,
-             height="600px",
-             width="800px",
+             height="480px",
+             width="1360px",
              heading='')
 
 for i, r in d.iterrows():
@@ -55,4 +57,4 @@ nt.show('mock_draft_network.html')
 
 html_file = open('./mock_draft_network.html', 'r', encoding='utf-8')
 source_code = html_file.read()
-components.html(source_code, height = 600,width=800)
+components.iframe(source_code, height=510,width=1400)
