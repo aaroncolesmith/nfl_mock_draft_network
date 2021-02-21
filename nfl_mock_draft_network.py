@@ -57,4 +57,4 @@ nt.show('mock_draft_network.html')
 
 html_file = open('./mock_draft_network.html', 'r', encoding='utf-8')
 source_code = html_file.read()
-components.iframe(source_code, height=510,width=1400)
+components.html(source_code, height=510,width=1400)
