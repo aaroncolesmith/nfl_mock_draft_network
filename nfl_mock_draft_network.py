@@ -6,16 +6,42 @@ import streamlit.components.v1 as components
 import networkx as nx
 
 st.set_page_config(
-    page_title='NFL Mock Draft Network',
+    page_title='NFL Mock Draft Database',
     page_icon='football',
     layout='wide',
     initial_sidebar_state='collapsed')
 
 # st.title('NFL Mock Draft Network')
-st.markdown("<h1 style='text-align: center; color: black;'>NFL Mock Draft Network</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: black;'>NFL Mock Draft Database</h1>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center; color: black;'>Taking a look at a number of public NFL mock drafts to identify trends and relationships</h3>", unsafe_allow_html=True)
 
 
 df_i = pd.read_csv('https://raw.githubusercontent.com/aaroncolesmith/nfl_mock_draft_db/main/nfl_mock_draft_db.csv')
+
+
+d1=pd.DataFrame()
+d2=pd.DataFrame()
+for i in df_i.player.unique():
+  d1 = pd.concat([d1, df_i.loc[df_i.player == i].iloc[0:5]])
+  d2 = pd.concat([d2, df_i.loc[df_i.player == i].iloc[5:10]])
+
+d3=pd.merge(d1.groupby(['player']).agg({'pick':'mean'}).reset_index(), d2.groupby(['player']).agg({'pick':'mean'}).reset_index(), how='left', suffixes=('_0','_1'), left_on='player', right_on='player')
+d3['chg'] = d3['pick_0'] - d3['pick_1']
+d3['pct_chg']=d3['chg'] / d3['pick_1']
+d3=d3.sort_values('chg',ascending=True)
+
+
+col1, col2 = st.beta_columns(2)
+col1.success("### Players Rising :fire:")
+for i, r in d3.head(5).iterrows():
+    col1.write(r['player']+' - trending ' + str(round(abs(r['chg']),2)) + ' picks earlier')
+
+
+col2.warning("### Players Falling 🧊")
+for i, r in d3.tail(5).iterrows():
+    col2.write(r['player'] + ' - trending ' + str(round(r['chg'],2)) +' picks later')
+
+
 num=10
 df=pd.DataFrame()
 for i in df_i.player.unique():
