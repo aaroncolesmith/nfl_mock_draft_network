@@ -5,6 +5,12 @@ from pyvis import network as net
 import streamlit.components.v1 as components
 import networkx as nx
 
+st.set_page_config(
+    page_title='NFL Mock Draft Network',
+    page_icon='football'
+    layout='wide',
+    initial_sidebar_state='collapsed')
+
 st.title('NFL Mock Draft Network')
 
 df_i = pd.read_csv('https://raw.githubusercontent.com/aaroncolesmith/nfl_mock_draft_db/main/nfl_mock_draft_db.csv')
@@ -49,6 +55,4 @@ nt.show('mock_draft_network.html')
 
 html_file = open('./mock_draft_network.html', 'r', encoding='utf-8')
 source_code = html_file.read()
-components.html(source_code, height = 750,width=750)
-
-st.write('done')
+components.html(source_code, height = 750,width=500)
