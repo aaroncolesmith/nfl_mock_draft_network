@@ -30,7 +30,8 @@ d3=pd.merge(d1.groupby(['player']).agg({'pick':'mean'}).reset_index(), d2.groupb
 d3['chg'] = d3['pick_0'] - d3['pick_1']
 d3['pct_chg']=d3['chg'] / d3['pick_1']
 d3=d3.sort_values('chg',ascending=True)
-
+st.write(d3.head(7))
+st.write(d3.tail(7))
 
 col1, col2 = st.beta_columns(2)
 col1.success("### Players Rising :fire:")
