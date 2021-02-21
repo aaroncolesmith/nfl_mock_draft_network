@@ -13,7 +13,7 @@ st.set_page_config(
 
 # st.title('NFL Mock Draft Network')
 st.markdown("<h1 style='text-align: center; color: black;'>NFL Mock Draft Database</h1>", unsafe_allow_html=True)
-st.markdown("<h3 style='text-align: center; color: black;'>Taking a look at a number of public NFL mock drafts to identify trends and relationships</h3>", unsafe_allow_html=True)
+st.markdown("<h4 style='text-align: center; color: black;'>Taking a look at a number of public NFL mock drafts to identify trends and relationships</h4>", unsafe_allow_html=True)
 
 
 df_i = pd.read_csv('https://raw.githubusercontent.com/aaroncolesmith/nfl_mock_draft_db/main/nfl_mock_draft_db.csv')
@@ -40,6 +40,9 @@ for i, r in d3.head(5).iterrows():
 col2.warning("### Players Falling 🧊")
 for i, r in d3.tail(5).iterrows():
     col2.write(r['player'] + ' - trending ' + str(round(r['chg'],2)) +' picks later')
+
+
+st.markdown("<h4 style='text-align: center; color: black;'>Network diagram showing relationships between teams and drafted players in recent mock drafts</h4>", unsafe_allow_html=True)
 
 
 num=10
@@ -84,3 +87,15 @@ nt.show('mock_draft_network.html')
 html_file = open('./mock_draft_network.html', 'r', encoding='utf-8')
 source_code = html_file.read()
 components.html(source_code, height=510,width=1300)
+
+
+
+fig=px.bar(df_i.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15),
+       y=df_i.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15).team + ' - '+df_i.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15).player,
+       x='cnt',
+       orientation='h',
+       title='Most Common Team - Player Pairings')
+fig.update_yaxes(title='Count')
+fig.update_xaxes(title='Team & Player Pairing', categoryorder='category ascending')
+fig.update_yaxes(autorange="reversed")
+st.plotly_chart(fig, use_container_width=True)
