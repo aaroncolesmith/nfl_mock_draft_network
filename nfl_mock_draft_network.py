@@ -5,11 +5,11 @@ from pyvis import network as net
 import streamlit.components.v1 as components
 import networkx as nx
 
-st.set_page_config(
-    page_title='NFL Mock Draft Network',
-    page_icon='football',
-    layout='wide',
-    initial_sidebar_state='collapsed')
+# st.set_page_config(
+#     page_title='NFL Mock Draft Network',
+#     page_icon='football',
+#     layout='wide',
+#     initial_sidebar_state='collapsed')
 
 st.title('NFL Mock Draft Network')
 
