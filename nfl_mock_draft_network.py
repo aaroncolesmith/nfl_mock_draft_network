@@ -8,7 +8,7 @@ import networkx as nx
 st.set_page_config(
     page_title='NFL Mock Draft Network',
     page_icon='football',
-    layout='wide',
+    # layout='wide',
     initial_sidebar_state='collapsed')
 
 st.title('NFL Mock Draft Network')
@@ -55,4 +55,4 @@ nt.show('mock_draft_network.html')
 
 html_file = open('./mock_draft_network.html', 'r', encoding='utf-8')
 source_code = html_file.read()
-components.html(source_code, height = 800,width=800)
+components.html(source_code, height = 600,width=800)
