@@ -40,7 +40,7 @@ d['player_pick_str'] = d['player']+ ' - '+d['cnt'].astype('str')+' times'
 nt = Network(directed=False,
              notebook=True,
              height="480px",
-             width="1360px",
+             width="1260px",
              heading='')
 
 for i, r in d.iterrows():
@@ -57,4 +57,4 @@ nt.show('mock_draft_network.html')
 
 html_file = open('./mock_draft_network.html', 'r', encoding='utf-8')
 source_code = html_file.read()
-components.html(source_code, height=510,width=1400)
+components.html(source_code, height=510,width=1300)
