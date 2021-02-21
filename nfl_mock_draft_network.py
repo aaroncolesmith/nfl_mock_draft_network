@@ -55,4 +55,4 @@ nt.show('mock_draft_network.html')
 
 html_file = open('./mock_draft_network.html', 'r', encoding='utf-8')
 source_code = html_file.read()
-components.html(source_code, height = 750,width=500)
+components.html(source_code, height = 500,width=1080)
