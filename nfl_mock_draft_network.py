@@ -7,7 +7,7 @@ import networkx as nx
 
 st.set_page_config(
     page_title='NFL Mock Draft Network',
-    page_icon='football'
+    page_icon='football',
     layout='wide',
     initial_sidebar_state='collapsed')
 
