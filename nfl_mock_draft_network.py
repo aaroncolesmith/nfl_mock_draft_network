@@ -37,8 +37,8 @@ d['player_pick_str'] = d['player']+ ' - '+d['cnt'].astype('str')+' times'
 
 nt = Network(directed=False,
              notebook=True,
-             height="750px",
-             width="100%",
+             height="600px",
+             width="800px",
              heading='')
 
 for i, r in d.iterrows():
