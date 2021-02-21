@@ -88,10 +88,19 @@ html_file = open('./mock_draft_network.html', 'r', encoding='utf-8')
 source_code = html_file.read()
 components.html(source_code, height=510,width=1300)
 
+option = st.radio('View all or most recent mock drafts?',('All','Most Recent'))
+if option == 'All':
+    d2 = df_i
 
+if option == 'Most Recent':
+    num=st.number_input('How many recent mock drafts?', min_value=1, max_value=50, value=10)
+    df_latest=pd.DataFrame()
+    for i in df_i.player.unique():
+      df_latest = pd.concat([df_latest, df_i.loc[df_i.player == i].head(num)])
+      d2=df_latest
 
-fig=px.bar(df_i.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15),
-       y=df_i.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15).team + ' - '+df_i.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15).player,
+fig=px.bar(d2.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15),
+       y=d2.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15).team + ' - '+d2.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15).player,
        x='cnt',
        orientation='h',
        title='Most Common Team - Player Pairings')
@@ -101,13 +110,13 @@ fig.update_yaxes(autorange="reversed")
 st.plotly_chart(fig, use_container_width=True)
 
 
-fig = px.box(df_i.loc[df_i.player.isin(df_i.groupby('player').agg({'pick':'mean'}).reset_index().sort_values('pick',ascending=True).head(25)['player'])], x="player", y="pick", points="all", hover_data=['team','date','source'], title='Distribution of Draft Position by Player', width=1600)
+fig = px.box(d2.loc[d2.player.isin(d2.groupby('player').agg({'pick':'mean'}).reset_index().sort_values('pick',ascending=True).head(25)['player'])], x="player", y="pick", points="all", hover_data=['team','date','source'], title='Distribution of Draft Position by Player', width=1600)
 fig.update_xaxes(title='Player')
 fig.update_yaxes(title='Draft Position')
 st.plotly_chart(fig, use_container_width=True)
 
 
-d=df_i.groupby(['team','team_img','player']).agg({'pick':['min','mean','median','size']}).reset_index()
+d=d2.groupby(['team','team_img','player']).agg({'pick':['min','mean','median','size']}).reset_index()
 d.columns=['team','team_img','player','min_pick','avg_pick','median_pick','cnt']
 fig=px.scatter(d,
       x='cnt',
