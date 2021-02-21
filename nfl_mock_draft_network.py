@@ -101,7 +101,36 @@ fig.update_yaxes(autorange="reversed")
 st.plotly_chart(fig, use_container_width=True)
 
 
-fig = px.box(df_i.loc[df_i.player.isin(df_i.groupby('player').agg({'pick':'mean'}).reset_index().sort_values('pick',ascending=True)['player'])], x="player", y="pick", points="all", hover_data=['team','date','source'], title='Distribution of Draft Position by Player', width=1600)
+fig = px.box(df_i.loc[df_i.player.isin(df_i.groupby('player').agg({'pick':'mean'}).reset_index().sort_values('pick',ascending=True).head(25)['player'])], x="player", y="pick", points="all", hover_data=['team','date','source'], title='Distribution of Draft Position by Player', width=1600)
 fig.update_xaxes(title='Player')
 fig.update_yaxes(title='Draft Position')
+st.plotly_chart(fig, use_container_width=True)
+
+
+d=df_i.groupby(['team','team_img','player']).agg({'pick':['min','mean','median','size']}).reset_index()
+d.columns=['team','team_img','player','min_pick','avg_pick','median_pick','cnt']
+fig=px.scatter(d,
+      x='cnt',
+      y='avg_pick',
+       color='team',
+       title='# of Times a Player is Mocked to a Given Pick / Team',
+      hover_data=['player'])
+fig.update_xaxes(title='# of Occurences')
+fig.update_yaxes(title='Avg. Draft Pick')
+fig.update_traces(mode='markers',
+                  marker=dict(size=8,
+                              line=dict(width=1,
+                                        color='DarkSlateGrey')))
+st.plotly_chart(fig, use_container_width=True)
+
+d=d.sort_values('avg_pick',ascending=True)
+fig=px.scatter(d,
+      x='player',
+      y='avg_pick',
+       size='cnt',
+      color='team',
+      height=600,
+      title='Avg. Pick Placement by Player / Team')
+fig.update_xaxes(title='Player')
+fig.update_yaxes(title='Avg. Draft Position')
 st.plotly_chart(fig, use_container_width=True)
