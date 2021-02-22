@@ -62,6 +62,7 @@ player.columns=['player','times_picked']
 team=d.groupby(['team_pick']).agg({'cnt':'sum'}).reset_index()
 team.columns=['team_pick','team_times_picked']
 
+
 d=pd.merge(d,player)
 d=pd.merge(d,team)
 
@@ -82,7 +83,7 @@ for i, r in d.iterrows():
                 color={'background':'#40D0EF','border':'#03AED3'},
                 title = '<b>'+r['player'] + '</b> <br> ' + d.loc[d.player==r['player']].groupby('player').apply(lambda x: ', <br>'.join(x.pick_str)).to_frame('pick_str').reset_index()['pick_str'].item())
     nt.add_node(r['team_pick'],
-                size=r['cnt'],
+                size=r['team_times_picked'],
                 color={'background':'#FA70C8','border':'#EC0498'},
                 # shape='image',
                 # image =r['team_img'],
