@@ -19,10 +19,12 @@ st.markdown("<h4 style='text-align: center; color: black;'>Taking a look at a nu
 
 df_i = pd.read_csv('https://raw.githubusercontent.com/aaroncolesmith/nfl_mock_draft_db/main/nfl_mock_draft_db.csv')
 
+num=10
+
 
 d1=pd.DataFrame()
 d2=pd.DataFrame()
-for i in df_i.player.unique():
+for i in df_i.loc[df_i.date.isin(df_i.head(num)['date'].values)].player.unique():
   d1 = pd.concat([d1, df_i.loc[df_i.player == i].iloc[0:5]])
   d2 = pd.concat([d2, df_i.loc[df_i.player == i].iloc[5:10]])
 
@@ -45,10 +47,12 @@ for i, r in d3.loc[d3.chg.notnull()].tail(5).iterrows():
 st.markdown("<h4 style='text-align: center; color: black;'>Network diagram showing relationships between teams and drafted players in recent mock drafts</h4>", unsafe_allow_html=True)
 
 
-num=10
+
 df=pd.DataFrame()
-for i in df_i.player.unique():
-    df = pd.concat([df, df_i.loc[df_i.player == i].head(num)])
+# for i in df_i.player.unique():
+#     df = pd.concat([df, df_i.loc[df_i.player == i].head(num)])
+
+df = df_i.loc[df_i.date.isin(df_i.head(num)['date'].values)]
 
 df['team_pick'] = 'Pick '+ df['pick'].astype('str').replace('\.0', '', regex=True) + ' - ' +df['team']
 d=df.groupby(['player','team_pick','team_img']).size().to_frame('cnt').reset_index()
