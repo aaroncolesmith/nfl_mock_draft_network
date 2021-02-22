@@ -86,6 +86,7 @@ for i, r in d.iterrows():
     nt.add_edge(r['player'],
                 r['team_pick'],
                 value = r['cnt'],
+                color='#9DA0DC',
                 title=r['team_pick']+' picked '+r['player']+' '+str(r['cnt'])+ '  times')
 nt.show('mock_draft_network.html')
 
