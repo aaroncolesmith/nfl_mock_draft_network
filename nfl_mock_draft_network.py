@@ -76,6 +76,8 @@ nt = Network(directed=False,
              width="1260px",
              heading='')
 
+nt.force_atlas_2based()
+
 for i, r in d.iterrows():
     nt.add_node(r['player'],
                 size=r['times_picked'],
