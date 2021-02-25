@@ -88,7 +88,7 @@ for i, r in d.iterrows():
     nt.add_node(r['team_pick'],
                 size=r['team_times_picked'],
                 color={'background':'#FA70C8','border':'#EC0498'},
-                if icon:
+                if icon==True:
                     shape='image',
                     image =r['team_img'],
                 title='<b>' +r['team_pick'] + ' - ' +str(r['team_times_picked'])+'  total picks</b> <br> ' + d.loc[d.team_pick == r['team_pick']].groupby('team_pick').apply(lambda x: ', <br>'.join(x.player_pick_str)).to_frame('cnt').reset_index()['cnt'].item())
