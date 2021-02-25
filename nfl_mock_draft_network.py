@@ -79,7 +79,6 @@ nt = Network(directed=False,
 nt.force_atlas_2based(damping=2)
 
 icon = st.checkbox('Show icons (slows it down a bit)')
-st.write(icon)
 
 for i, r in d.iterrows():
     nt.add_node(r['player'],
