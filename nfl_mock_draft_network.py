@@ -19,8 +19,7 @@ st.markdown("<h4 style='text-align: center; color: black;'>Taking a look at a nu
 
 df_i = pd.read_csv('https://raw.githubusercontent.com/aaroncolesmith/nfl_mock_draft_db/main/nfl_mock_draft_db.csv')
 
-num=10
-
+num=20
 
 d1=pd.DataFrame()
 d2=pd.DataFrame()
