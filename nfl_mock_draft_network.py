@@ -84,7 +84,7 @@ for i, r in d.iterrows():
     nt.add_node(r['player'],
                 size=r['times_picked'],
                 color={'background':'#40D0EF','border':'#03AED3'},
-                title = '<b>'+r['player'] + '</b> <br> ' + d.loc[d.player==r['player']].groupby('player').apply(lambda x: ', <br>'.join(x.pick_str)).to_frame('pick_str').reset_index()['pick_str'].item())
+                title = '<b>'+r['player'] + ' - Picked '+str(r['times_picked'])+'  times </b> <br> ' + d.loc[d.player==r['player']].groupby('player').apply(lambda x: ', <br>'.join(x.pick_str)).to_frame('pick_str').reset_index()['pick_str'].item())
     if icon:
         nt.add_node(r['team_pick'],
                     size=r['team_times_picked'],
