@@ -14,10 +14,9 @@ st.set_page_config(
     initial_sidebar_state='collapsed')
 
 
-streamlit_analytics.start_tracking(unsafe_password="test123")
-st.markdown("<h1 style='text-align: center; color: black;'>NFL Mock Draft Database</h1>", unsafe_allow_html=True)
-st.markdown("<h4 style='text-align: center; color: black;'>Taking a look at a number of public NFL mock drafts to identify trends and relationships</h4>", unsafe_allow_html=True)
-streamlit_analytics.stop_tracking(unsafe_password="test123")
+with streamlit_analytics.track(unsafe_password="test123"):
+    st.markdown("<h1 style='text-align: center; color: black;'>NFL Mock Draft Database</h1>", unsafe_allow_html=True)
+    st.markdown("<h4 style='text-align: center; color: black;'>Taking a look at a number of public NFL mock drafts to identify trends and relationships</h4>", unsafe_allow_html=True)
 
 df_i = pd.read_csv('https://raw.githubusercontent.com/aaroncolesmith/nfl_mock_draft_db/main/nfl_mock_draft_db.csv')
 
