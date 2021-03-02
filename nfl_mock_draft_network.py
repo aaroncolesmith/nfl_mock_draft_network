@@ -5,6 +5,7 @@ from pyvis import network as net
 import streamlit.components.v1 as components
 import networkx as nx
 import plotly_express as px
+import streamlit_analytics
 
 st.set_page_config(
     page_title='NFL Mock Draft Database',
@@ -12,10 +13,11 @@ st.set_page_config(
     layout='wide',
     initial_sidebar_state='collapsed')
 
-# st.title('NFL Mock Draft Network')
+
+streamlit_analytics.start_tracking(unsafe_password="test123")
 st.markdown("<h1 style='text-align: center; color: black;'>NFL Mock Draft Database</h1>", unsafe_allow_html=True)
 st.markdown("<h4 style='text-align: center; color: black;'>Taking a look at a number of public NFL mock drafts to identify trends and relationships</h4>", unsafe_allow_html=True)
-
+streamlit_analytics.stop_tracking(unsafe_password="test123")
 
 df_i = pd.read_csv('https://raw.githubusercontent.com/aaroncolesmith/nfl_mock_draft_db/main/nfl_mock_draft_db.csv')
 
@@ -125,7 +127,7 @@ components.html(source_code, height=510,width=1300)
 #       d2 = pd.concat([d2, df_latest.loc[df_latest.player == i].head(num)])
 
 
-d2=df
+d2=dfsu
 
 
 fig=px.bar(d2.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15),
