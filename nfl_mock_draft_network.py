@@ -111,19 +111,21 @@ html_file = open('./mock_draft_network.html', 'r', encoding='utf-8')
 source_code = html_file.read()
 components.html(source_code, height=510,width=1300)
 
-option = st.radio('View all or most recent mock drafts?',('All','Most Recent'))
-if option == 'All':
-    d2 = df_i
+# option = st.radio('View all or most recent mock drafts?',('All','Most Recent'))
+# if option == 'All':
+#     d2 = df_i
+#
+# if option == 'Most Recent':
+#     num=st.number_input('How many recent mock drafts?', min_value=1, max_value=50, value=10)
+#     df_latest=pd.DataFrame()
+#     d2=pd.DataFrame()
+#     df_latest = df_i.loc[df_i.date.isin(df_i.head(num)['date'].values)]
+#
+#     for i in df_latest.player.unique():
+#       d2 = pd.concat([d2, df_latest.loc[df_latest.player == i].head(num)])
 
-if option == 'Most Recent':
-    num=st.number_input('How many recent mock drafts?', min_value=1, max_value=50, value=10)
-    df_latest=pd.DataFrame()
-    d2=pd.DataFrame()
-    df_latest = df_i.loc[df_i.date.isin(df_i.head(num)['date'].values)]
 
-    for i in df_latest.player.unique():
-      d2 = pd.concat([d2, df_latest.loc[df_latest.player == i].head(num)])
-
+d2=df
 
 
 fig=px.bar(d2.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15),
