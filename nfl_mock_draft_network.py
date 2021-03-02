@@ -79,7 +79,8 @@ nt = Network(directed=False,
 
 nt.force_atlas_2based(damping=2)
 
-icon = st.checkbox('Show icons (slows it down a bit)')
+with streamlit_analytics.track(unsafe_password="test123"):
+    icon = st.checkbox('Show icons (slows it down a bit)')
 
 for i, r in d.iterrows():
     nt.add_node(r['player'],
@@ -126,50 +127,51 @@ components.html(source_code, height=510,width=1300)
 #       d2 = pd.concat([d2, df_latest.loc[df_latest.player == i].head(num)])
 
 
-d2=dfsu
+d2=df
 
+with streamlit_analytics.track(unsafe_password="test123"):
+    fig=px.bar(d2.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15),
+           y=d2.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15).team + ' - '+d2.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15).player,
+           x='cnt',
+           orientation='h',
+           title='Most Common Team - Player Pairings')
+    fig.update_yaxes(title='Count')
+    fig.update_xaxes(title='Team & Player Pairing', categoryorder='category ascending')
+    fig.update_yaxes(autorange="reversed")
+    st.plotly_chart(fig, use_container_width=True)
 
-fig=px.bar(d2.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15),
-       y=d2.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15).team + ' - '+d2.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15).player,
-       x='cnt',
-       orientation='h',
-       title='Most Common Team - Player Pairings')
-fig.update_yaxes(title='Count')
-fig.update_xaxes(title='Team & Player Pairing', categoryorder='category ascending')
-fig.update_yaxes(autorange="reversed")
-st.plotly_chart(fig, use_container_width=True)
+with streamlit_analytics.track(unsafe_password="test123"):
+    fig = px.box(d2.loc[d2.player.isin(d2.groupby('player').agg({'pick':'mean'}).reset_index().sort_values('pick',ascending=True).head(25)['player'])], x="player", y="pick", points="all", hover_data=['team','date','source'], title='Distribution of Draft Position by Player', width=1600)
+    fig.update_xaxes(title='Player')
+    fig.update_yaxes(title='Draft Position')
+    st.plotly_chart(fig, use_container_width=True)
 
+with streamlit_analytics.track(unsafe_password="test123"):
+    d=d2.groupby(['team','team_img','player']).agg({'pick':['min','mean','median','size']}).reset_index()
+    d.columns=['team','team_img','player','min_pick','avg_pick','median_pick','cnt']
+    fig=px.scatter(d,
+          x='cnt',
+          y='avg_pick',
+           color='team',
+           title='# of Times a Player is Mocked to a Given Pick / Team',
+          hover_data=['player'])
+    fig.update_xaxes(title='# of Occurences')
+    fig.update_yaxes(title='Avg. Draft Pick')
+    fig.update_traces(mode='markers',
+                      marker=dict(size=8,
+                                  line=dict(width=1,
+                                            color='DarkSlateGrey')))
+    st.plotly_chart(fig, use_container_width=True)
 
-fig = px.box(d2.loc[d2.player.isin(d2.groupby('player').agg({'pick':'mean'}).reset_index().sort_values('pick',ascending=True).head(25)['player'])], x="player", y="pick", points="all", hover_data=['team','date','source'], title='Distribution of Draft Position by Player', width=1600)
-fig.update_xaxes(title='Player')
-fig.update_yaxes(title='Draft Position')
-st.plotly_chart(fig, use_container_width=True)
-
-
-d=d2.groupby(['team','team_img','player']).agg({'pick':['min','mean','median','size']}).reset_index()
-d.columns=['team','team_img','player','min_pick','avg_pick','median_pick','cnt']
-fig=px.scatter(d,
-      x='cnt',
-      y='avg_pick',
-       color='team',
-       title='# of Times a Player is Mocked to a Given Pick / Team',
-      hover_data=['player'])
-fig.update_xaxes(title='# of Occurences')
-fig.update_yaxes(title='Avg. Draft Pick')
-fig.update_traces(mode='markers',
-                  marker=dict(size=8,
-                              line=dict(width=1,
-                                        color='DarkSlateGrey')))
-st.plotly_chart(fig, use_container_width=True)
-
-d=d.sort_values('avg_pick',ascending=True)
-fig=px.scatter(d,
-      x='player',
-      y='avg_pick',
-       size='cnt',
-      color='team',
-      height=600,
-      title='Avg. Pick Placement by Player / Team')
-fig.update_xaxes(title='Player')
-fig.update_yaxes(title='Avg. Draft Position')
-st.plotly_chart(fig, use_container_width=True)
+with streamlit_analytics.track(unsafe_password="test123"):
+    d=d.sort_values('avg_pick',ascending=True)
+    fig=px.scatter(d,
+          x='player',
+          y='avg_pick',
+           size='cnt',
+          color='team',
+          height=600,
+          title='Avg. Pick Placement by Player / Team')
+    fig.update_xaxes(title='Player')
+    fig.update_yaxes(title='Avg. Draft Position')
+    st.plotly_chart(fig, use_container_width=True)
