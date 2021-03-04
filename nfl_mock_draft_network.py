@@ -141,7 +141,7 @@ with streamlit_analytics.track(unsafe_password="test123"):
     st.plotly_chart(fig, use_container_width=True)
 
 with streamlit_analytics.track(unsafe_password="test123"):
-    fig = px.box(d2.loc[d2.player.isin(d2.groupby('player').agg({'pick':'mean'}).reset_index().sort_values('pick',ascending=True).head(25)['player'])], x="player", y="pick", points="all", hover_data=['team','date','source'], title='Distribution of Draft Position by Player', width=1600)
+    fig = px.box(d2.loc[d2.player.isin(d2.groupby('player').agg({'pick':'size'}).reset_index().sort_values('pick',ascending=True).head(25)['player'])], x="player", y="pick", points="all", hover_data=['team','date','source'], title='Distribution of Draft Position by Player', width=1600)
     fig.update_xaxes(title='Player')
     fig.update_yaxes(title='Draft Position')
     st.plotly_chart(fig, use_container_width=True)
