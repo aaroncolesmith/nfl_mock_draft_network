@@ -43,6 +43,7 @@ col2.warning("### Players Falling 🧊")
 for i, r in d3.loc[d3.chg.notnull()].tail(5).iterrows():
     col2.write(r['player'] + ' - trending ' + str(round(r['chg'],2)) +' picks later')
 
+del d1, d2, d3
 
 st.markdown("<h4 style='text-align: center; color: black;'>Network diagram showing relationships between teams and drafted players in recent mock drafts</h4>", unsafe_allow_html=True)
 
@@ -126,7 +127,6 @@ components.html(source_code, height=510,width=1300)
 #     for i in df_latest.player.unique():
 #       d2 = pd.concat([d2, df_latest.loc[df_latest.player == i].head(num)])
 
-
 d2=df
 
 with streamlit_analytics.track(unsafe_password="test123"):
@@ -176,6 +176,8 @@ with streamlit_analytics.track(unsafe_password="test123"):
     fig.update_yaxes(title='Avg. Draft Position')
     st.plotly_chart(fig, use_container_width=True)
 
+
+st.write(df_i.head(5))
 
 alldfs = [var for var in dir() if isinstance(eval(var), pd.core.frame.DataFrame)]
 st.write(alldfs)
