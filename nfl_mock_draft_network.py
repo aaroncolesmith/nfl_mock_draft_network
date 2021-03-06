@@ -175,3 +175,7 @@ with streamlit_analytics.track(unsafe_password="test123"):
     fig.update_xaxes(title='Player')
     fig.update_yaxes(title='Avg. Draft Position')
     st.plotly_chart(fig, use_container_width=True)
+
+
+alldfs = [var for var in dir() if isinstance(eval(var), pd.core.frame.DataFrame)]
+st.write(alldfs)
