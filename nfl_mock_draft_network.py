@@ -176,9 +176,9 @@ with streamlit_analytics.track(unsafe_password="test123"):
     fig.update_yaxes(title='Avg. Draft Position')
     st.plotly_chart(fig, use_container_width=True)
 
-df['source_date'] = df['source'] + '_' +df['date']
+df['source_date'] = df['source'] + ' - ' +df['date']
 draft = st.selectbox('Pick a draft to view:',df['source_date'].unique())
-st.write(df.loc[df['source_date'] == draft].sort_values('pick',ascending=False).reset_index())
+st.write(df.loc[df['source_date'] == draft].sort_values('pick',ascending=False).reset_index(drop=True))
 
 
 
