@@ -197,7 +197,22 @@ st.write(HTML(df.loc[df['source_date'] == draft].sort_values('pick',ascending=Tr
 
 HTML(df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True).to_html(escape=False,formatters=dict(Country=path_to_image_html)))
 
+df_table=df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True)
+df_table['html'] = ["<img src='" + r.team_img
+    + f"""' style='display:block;margin-left:auto;margin-right:auto;width:{image_width}px;border:0;'><div style='text-align:center'>"""
+    + "<br>".join(r.player.split()) + "</div>"
+    for ir, r in sel.iterrows()]
 
+st.write(df_table.to_html(escape=False), unsafe_allow_html=True)
+
+    # sel['html'] = ["<img src='" + r.url
+    #     + f"""' style='display:block;margin-left:auto;margin-right:auto;width:{image_width}px;border:0;'><div style='text-align:center'>"""
+    #     + "<br>".join(r.caption.split()) + "</div>"
+    #     for ir, r in sel.iterrows()]
+    # sel2 = sel[['model', 'html', 'rank']].pivot(index='rank', columns="model", values="html")
+    #
+    # #show the list of images as a dataframe
+    # st.write(sel2.to_html(escape=False), unsafe_allow_html=True)
 
 
 # alldfs = [var for var in dir() if isinstance(eval(var), pd.core.frame.DataFrame)]
