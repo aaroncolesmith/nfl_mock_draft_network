@@ -199,7 +199,7 @@ df_table['team'] = ["<img src='" + r.team_img
     # + "<br>".join(r.team.split()) + "</div>"
     for ir, r in df_table.iterrows()]
 
-st.write(df_table[['pick','team','player']].to_html(escape=False), unsafe_allow_html=True)
+st.write(df_table[['pick','team','player']].to_html(index=False,escape=False), unsafe_allow_html=True)
 
     # sel['html'] = ["<img src='" + r.url
     #     + f"""' style='display:block;margin-left:auto;margin-right:auto;width:{image_width}px;border:0;'><div style='text-align:center'>"""
