@@ -6,12 +6,16 @@ import streamlit.components.v1 as components
 import networkx as nx
 import plotly_express as px
 import streamlit_analytics
+from IPython.core.display import HTML
 
 st.set_page_config(
     page_title='NFL Mock Draft Database',
     page_icon='football',
     layout='wide',
     initial_sidebar_state='collapsed')
+
+def path_to_image_html(path):
+    return '<img src="'+ path + '" width="60" >'
 
 
 with streamlit_analytics.track(unsafe_password="test123"):
@@ -188,6 +192,8 @@ for i,r in df.loc[df['source_date'] == draft].sort_values('pick',ascending=True)
     col2.image(r['team_img'], width=35)
     col3.write('Pick ' + str(r['pick']) + ' - ' + r['player'])
     col3.write('')
+
+st.write(HTML(df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True).to_html(escape=False,formatters=dict(Country=path_to_image_html))))
 
 
 
