@@ -186,29 +186,14 @@ draft = st.selectbox('Pick a draft to view:',df['source_date'].unique())
 
 
 col1, col2, col3 = st.beta_columns((4,4,4))
-# col2.subheader('Team')
-# col3.subheader('Pick')
-# for i,r in df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True).iterrows():
-#     col2.image(r['team_img'], width=35)
-#     col3.write('Pick ' + str(r['pick']) + ' - ' + r['player'])
-#     col3.write('')
-#
 df_table=df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True)
 df_table['team'] = ["<img src='" + r.team_img
     + f"""' style='display:block;margin-left:auto;margin-right:auto;width:32px;border:0;'><div style='text-align:center'>"""
     # + "<br>".join(r.team.split()) + "</div>"
     for ir, r in df_table.iterrows()]
+df_table['pick'] = df_table['pick'].astype('str').replace('\.0', '', regex=True)
 
 col2.write(df_table[['pick','team','player']].to_html(index=False,escape=False), unsafe_allow_html=True)
-
-    # sel['html'] = ["<img src='" + r.url
-    #     + f"""' style='display:block;margin-left:auto;margin-right:auto;width:{image_width}px;border:0;'><div style='text-align:center'>"""
-    #     + "<br>".join(r.caption.split()) + "</div>"
-    #     for ir, r in sel.iterrows()]
-    # sel2 = sel[['model', 'html', 'rank']].pivot(index='rank', columns="model", values="html")
-    #
-    # #show the list of images as a dataframe
-    # st.write(sel2.to_html(escape=False), unsafe_allow_html=True)
 
 
 # alldfs = [var for var in dir() if isinstance(eval(var), pd.core.frame.DataFrame)]
