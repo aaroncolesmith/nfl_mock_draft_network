@@ -187,6 +187,7 @@ col3.subheader('Pick')
 for i,r in df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True).iterrows():
     col2.image(r['team_img'], width=24)
     col3.write('Pick ' + str(r['pick']) + ' - ' + r['player'])
+    col3.write('')
 
 
 
