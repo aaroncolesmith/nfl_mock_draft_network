@@ -185,21 +185,21 @@ draft = st.selectbox('Pick a draft to view:',df['source_date'].unique())
 # st.write(df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True))
 
 
-col1, col2, col3, col4 = st.beta_columns((4,1,4,4))
-col2.subheader('Team')
-col3.subheader('Pick')
-for i,r in df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True).iterrows():
-    col2.image(r['team_img'], width=35)
-    col3.write('Pick ' + str(r['pick']) + ' - ' + r['player'])
-    col3.write('')
+col1, col2, col3 = st.beta_columns((2,4,2))
+# col2.subheader('Team')
+# col3.subheader('Pick')
+# for i,r in df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True).iterrows():
+#     col2.image(r['team_img'], width=35)
+#     col3.write('Pick ' + str(r['pick']) + ' - ' + r['player'])
+#     col3.write('')
+#
+# df_table=df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True)
+# df_table['team'] = ["<img src='" + r.team_img
+#     + f"""' style='display:block;margin-left:auto;margin-right:auto;width:32px;border:0;'><div style='text-align:center'>"""
+#     # + "<br>".join(r.team.split()) + "</div>"
+#     for ir, r in df_table.iterrows()]
 
-df_table=df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True)
-df_table['team'] = ["<img src='" + r.team_img
-    + f"""' style='display:block;margin-left:auto;margin-right:auto;width:32px;border:0;'><div style='text-align:center'>"""
-    # + "<br>".join(r.team.split()) + "</div>"
-    for ir, r in df_table.iterrows()]
-
-st.write(df_table[['pick','team','player']].to_html(index=False,escape=False), unsafe_allow_html=True)
+col2.write(df_table[['pick','team','player']].to_html(index=False,escape=False), unsafe_allow_html=True)
 
     # sel['html'] = ["<img src='" + r.url
     #     + f"""' style='display:block;margin-left:auto;margin-right:auto;width:{image_width}px;border:0;'><div style='text-align:center'>"""
