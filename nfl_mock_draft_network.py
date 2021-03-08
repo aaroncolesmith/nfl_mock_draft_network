@@ -201,7 +201,7 @@ df_table=df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).r
 df_table['html'] = ["<img src='" + r.team_img
     + f"""' style='display:block;margin-left:auto;margin-right:auto;width:{image_width}px;border:0;'><div style='text-align:center'>"""
     + "<br>".join(r.player.split()) + "</div>"
-    for ir, r in sel.iterrows()]
+    for ir, r in df_table.iterrows()]
 
 st.write(df_table.to_html(escape=False), unsafe_allow_html=True)
 
