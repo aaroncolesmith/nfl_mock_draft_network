@@ -185,7 +185,7 @@ col1, col2, col3, col4 = st.beta_columns((4,2,4,4))
 col2.subheader('Team')
 col3.subheader('Pick')
 for i,r in df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True).iterrows():
-    col2.image(r['team_img'], width=8)
+    col2.image(r['team_img'], width=24)
     col3.write('Pick ' + str(r['pick']) + ' - ' + r['player'])
 
 
