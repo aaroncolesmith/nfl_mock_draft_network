@@ -178,10 +178,10 @@ with streamlit_analytics.track(unsafe_password="test123"):
 
 df['source_date'] = df['source'] + ' - ' +df['date']
 draft = st.selectbox('Pick a draft to view:',df['source_date'].unique())
-st.write(df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True))
+# st.write(df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True))
 
 
-col1, col2, col3, col4 = st.beta_columns((4,4,4,4))
+col1, col2, col3, col4 = st.beta_columns((4,1,4,4))
 col2.subheader('Team')
 col3.subheader('Pick')
 for i,r in df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True).iterrows():
