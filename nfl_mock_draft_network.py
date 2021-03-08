@@ -199,7 +199,7 @@ HTML(df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset
 
 df_table=df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True)
 df_table['html'] = ["<img src='" + r.team_img
-    + f"""' style='display:block;margin-left:auto;margin-right:auto;width:{image_width}px;border:0;'><div style='text-align:center'>"""
+    + f"""' style='display:block;margin-left:auto;margin-right:auto;width:32px;border:0;'><div style='text-align:center'>"""
     + "<br>".join(r.player.split()) + "</div>"
     for ir, r in df_table.iterrows()]
 
