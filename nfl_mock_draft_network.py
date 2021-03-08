@@ -180,9 +180,11 @@ df['source_date'] = df['source'] + ' - ' +df['date']
 draft = st.selectbox('Pick a draft to view:',df['source_date'].unique())
 st.write(df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True))
 
+
+col1, col2 = st.beta_columns(2)
 for i,r in df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True).iterrows():
-    st.image(r['team_img'], width=72)
-    st.write('Pick ' + str(r['pick']) + ' - ' + r['player'])
+    col1.image(r['team_img'], width=72)
+    col2.write('Pick ' + str(r['pick']) + ' - ' + r['player'])
 
 
 
