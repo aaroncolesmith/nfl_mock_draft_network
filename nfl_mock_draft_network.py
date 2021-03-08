@@ -193,7 +193,7 @@ for i,r in df.loc[df['source_date'] == draft].sort_values('pick',ascending=True)
     col3.write('Pick ' + str(r['pick']) + ' - ' + r['player'])
     col3.write('')
 
-st.write(HTML(df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True).to_html(escape=False,formatters=dict(Country=path_to_image_html))))
+st.write(HTML(df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True).to_html(escape=False,formatters=dict(Country=path_to_image_html))),unsafe_allow_html=True)
 
 HTML(df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True).to_html(escape=False,formatters=dict(Country=path_to_image_html)))
 
