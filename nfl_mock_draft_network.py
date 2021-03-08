@@ -198,12 +198,12 @@ st.write(HTML(df.loc[df['source_date'] == draft].sort_values('pick',ascending=Tr
 HTML(df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True).to_html(escape=False,formatters=dict(Country=path_to_image_html)))
 
 df_table=df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True)
-df_table['html'] = ["<img src='" + r.team_img
+df_table['team'] = ["<img src='" + r.team_img
     + f"""' style='display:block;margin-left:auto;margin-right:auto;width:32px;border:0;'><div style='text-align:center'>"""
-    + "<br>".join(r.player.split()) + "</div>"
+    + "<br>".join(r.team.split()) + "</div>"
     for ir, r in df_table.iterrows()]
 
-st.write(df_table.to_html(escape=False), unsafe_allow_html=True)
+st.write(df_table[['pick','team','player']].to_html(escape=False), unsafe_allow_html=True)
 
     # sel['html'] = ["<img src='" + r.url
     #     + f"""' style='display:block;margin-left:auto;margin-right:auto;width:{image_width}px;border:0;'><div style='text-align:center'>"""
