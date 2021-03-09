@@ -200,4 +200,4 @@ alldfs = [var for var in dir() if isinstance(eval(var), pd.core.frame.DataFrame)
 st.write(alldfs)
 for i in alldfs:
     st.write(i)
-    st.write(i.memory_usage(index=True).sum())
+    st.write(eval(i.memory_usage(index=True).sum()))
