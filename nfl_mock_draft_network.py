@@ -199,5 +199,5 @@ col2.write(df_table[['pick','team','player']].to_html(index=False,escape=False),
 alldfs = [var for var in dir() if isinstance(eval(var), pd.core.frame.DataFrame)]
 st.write(alldfs)
 for i in alldfs:
-    st.write(i + ' using ' +str(round((0.000001*eval(i).memory_usage(index=True).sum())),2)+ ' mbs of memory')
+    st.write(i + ' using ' + str(round(0.000001*eval(i).memory_usage(index=True).sum(),2))+' mbs of memory')
     # st.write(eval(i).memory_usage(index=True).sum())
