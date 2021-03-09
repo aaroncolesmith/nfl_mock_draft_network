@@ -196,5 +196,8 @@ df_table['pick'] = df_table['pick'].astype('str').replace('\.0', '', regex=True)
 col2.write(df_table[['pick','team','player']].to_html(index=False,escape=False), unsafe_allow_html=True)
 
 
-# alldfs = [var for var in dir() if isinstance(eval(var), pd.core.frame.DataFrame)]
-# st.write(alldfs)
+alldfs = [var for var in dir() if isinstance(eval(var), pd.core.frame.DataFrame)]
+st.write(alldfs)
+for i in alldfs:
+    st.write(i)
+    st.write(i.memory_usage(index=True).sum())
