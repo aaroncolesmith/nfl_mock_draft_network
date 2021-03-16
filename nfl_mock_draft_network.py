@@ -177,6 +177,7 @@ with streamlit_analytics.track(unsafe_password="test123"):
           height=600,
           title='Avg. Pick Placement by Player / Team')
     fig.update_xaxes(title='Player')
+    fig.update_xaxes(categoryorder='mean ascending')
     fig.update_yaxes(title='Avg. Draft Position')
     st.plotly_chart(fig, use_container_width=True)
 
@@ -196,8 +197,6 @@ df_table['pick'] = df_table['pick'].astype('str').replace('\.0', '', regex=True)
 col2.write(df_table[['pick','team','player']].to_html(index=False,escape=False), unsafe_allow_html=True)
 
 
-alldfs = [var for var in dir() if isinstance(eval(var), pd.core.frame.DataFrame)]
-st.write(alldfs)
-for i in alldfs:
-    st.write(i + ' using ' + str(round(0.000001*eval(i).memory_usage(index=True).sum(),2))+' mbs of memory')
-    # st.write(eval(i).memory_usage(index=True).sum())
+# alldfs = [var for var in dir() if isinstance(eval(var), pd.core.frame.DataFrame)]
+# for i in alldfs:
+#     st.write(i + ' using ' + str(round(0.000001*eval(i).memory_usage(index=True).sum(),2))+' mbs of memory')
