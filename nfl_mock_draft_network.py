@@ -19,11 +19,11 @@ st.markdown("<h4 style='text-align: center; color: black;'>Taking a look at a nu
 
 
 df = pd.read_csv('https://raw.githubusercontent.com/aaroncolesmith/nfl_mock_draft_db/main/new_nfl_mock_draft_db.csv')
-df['pick']=df.pick.str.replace('\u200b', '')
-df['pick']=pd.to_numeric(df['pick'])
-df['team_pick'] = 'Pick '+ df['pick'].astype('str').replace('\.0', '', regex=True) + ' - ' +df['team']
-df=df.loc[~df.team_pick.str.contains('/Colleges')]
-st.write(df.head(3))
+# df['pick']=df.pick.str.replace('\u200b', '')
+# df['pick']=pd.to_numeric(df['pick'])
+# df['team_pick'] = 'Pick '+ df['pick'].astype('str').replace('\.0', '', regex=True) + ' - ' +df['team']
+# df=df.loc[~df.team_pick.str.contains('/Colleges')]
+# st.write(df.head(3))
 
 d=pd.merge(df.iloc[0:500].groupby('player').agg({'pick':'mean','player_details':'size'}).reset_index(),
          df.iloc[501:1000].groupby('player').agg({'pick':'mean','player_details':'size'}).reset_index(),
