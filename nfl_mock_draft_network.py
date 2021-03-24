@@ -121,7 +121,7 @@ fig.update_yaxes(autorange="reversed")
 st.plotly_chart(fig, use_container_width=True)
 
 fig = px.box(df.loc[df.player.isin(df.groupby('player').agg({'pick':'size'}).reset_index().sort_values('pick',ascending=False).head(25)['player'])], x="player", y="pick", points="all", hover_data=['team','date','source'], title='Distribution of Draft Position by Player', width=1600)
-fig.update_xaxes(title='Player')
+fig.update_xaxes(title='Player', categoryorder='mean ascending')
 fig.update_yaxes(title='Draft Position')
 st.plotly_chart(fig, use_container_width=True)
 
