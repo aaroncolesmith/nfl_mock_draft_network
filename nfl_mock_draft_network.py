@@ -149,7 +149,7 @@ components.html(source_code, height=510,width=1300)
 fig=px.bar(df.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15),
        y=df.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15).team + ' - '+df.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15).player,
        x='cnt',
-       color='#FA70C8',
+       # color='#FA70C8',
        orientation='h',
        title='Most Common Team - Player Pairings')
 fig.update_yaxes(title='Count')
