@@ -14,9 +14,45 @@ st.set_page_config(
     layout='wide',
     initial_sidebar_state='collapsed')
 
+def update_colors(fig):
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#FB4F14') if trace.name == "Cincinnati Bengals" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#006778') if trace.name == "Jacksonville Jaguars" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#008E97') if trace.name == "Miami Dolphins" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#A71930') if trace.name == "Atlanta Falcons" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#125740') if trace.name == "New York Jets" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#97233F') if trace.name == "Arizona Cardinals" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#0076B6') if trace.name == "Detroit Lions" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#AA0000') if trace.name == "San Francisco 49Ers" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#241773') if trace.name == "Baltimore Ravens" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#C60C30') if trace.name == "Buffalo Bills" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#0085CA') if trace.name == "Carolina Panthers" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#C83803') if trace.name == "Chicago Bears" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#041E42') if trace.name == "Dallas Cowboys" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#FB4F14') if trace.name == "Denver Broncos" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#203731') if trace.name == "Green Bay Packers" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#03202F') if trace.name == "Houston Texans" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#FF3C00') if trace.name == "Cleveland Browns" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#002C5F') if trace.name == "Indianapolis Colts" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#E31837') if trace.name == "Kansas City Chiefs" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#0080C6') if trace.name == "Los Angeles Chargers" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#003594') if trace.name == "Los Angeles Rams" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#4F2683') if trace.name == "Minnesota Vikings" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#002244') if trace.name == "New England Patriots" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#D3BC8D') if trace.name == "New Orleans Saints" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#0B2265') if trace.name == "New York Giants" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#A5ACAF') if trace.name == "Las Vegas Raiders" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#004C54') if trace.name == "Philadelphia Eagles" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#FFB612') if trace.name == "Pittsburgh Steelers" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#69BE28') if trace.name == "Seattle Seahawks" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#D50A0A') if trace.name == "Tampa Bay Buccaneers" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#4B92DB') if trace.name == "Tennessee Titans" else ())
+  fig.for_each_trace(lambda trace: trace.update(marker_color='#773141') if trace.name == "Washington Football Team" else ())
+
+  return fig
+
+
 st.markdown("<h1 style='text-align: center; color: black;'>NFL Mock Draft Database</h1>", unsafe_allow_html=True)
 st.markdown("<h4 style='text-align: center; color: black;'>Taking a look at a number of public NFL mock drafts to identify trends and relationships</h4>", unsafe_allow_html=True)
-
 
 df = pd.read_csv('https://raw.githubusercontent.com/aaroncolesmith/nfl_mock_draft_db/main/new_nfl_mock_draft_db.csv')
 # df['pick']=df.pick.str.replace('\u200b', '')
@@ -113,6 +149,7 @@ components.html(source_code, height=510,width=1300)
 fig=px.bar(df.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15),
        y=df.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15).team + ' - '+df.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15).player,
        x='cnt',
+       color='#FA70C8',
        orientation='h',
        title='Most Common Team - Player Pairings')
 fig.update_yaxes(title='Count')
@@ -139,6 +176,7 @@ fig.update_traces(mode='markers',
                   marker=dict(size=8,
                               line=dict(width=1,
                                         color='DarkSlateGrey')))
+fig = update_colors(fig)
 st.plotly_chart(fig, use_container_width=True)
 
 d=d.sort_values('avg_pick',ascending=True)
@@ -152,6 +190,7 @@ fig=px.scatter(d,
 fig.update_xaxes(title='Player')
 fig.update_xaxes(categoryorder='mean ascending')
 fig.update_yaxes(title='Avg. Draft Position')
+fig = update_colors(fig)
 st.plotly_chart(fig, use_container_width=True)
 
 df['source_date'] = df['source'] + ' - ' +df['date']
