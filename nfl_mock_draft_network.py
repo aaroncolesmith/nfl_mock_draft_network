@@ -218,4 +218,5 @@ fig.update_traces(mode='markers',
                               line=dict(width=1,
                                         color='DarkSlateGrey')))
 fig = update_colors(fig)
+fig.update_layout({"xaxis"+str(i+1): dict(tickangle = -45) for i in range(7)})
 st.plotly_chart(fig, use_container_width=True)
