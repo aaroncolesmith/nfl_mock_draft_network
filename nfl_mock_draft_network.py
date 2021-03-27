@@ -50,16 +50,10 @@ def update_colors(fig):
 
   return fig
 
-
 st.markdown("<h1 style='text-align: center; color: black;'>NFL Mock Draft Database</h1>", unsafe_allow_html=True)
 st.markdown("<h4 style='text-align: center; color: black;'>Taking a look at a number of public NFL mock drafts to identify trends and relationships</h4>", unsafe_allow_html=True)
 
 df = pd.read_csv('https://raw.githubusercontent.com/aaroncolesmith/nfl_mock_draft_db/main/new_nfl_mock_draft_db.csv')
-# df['pick']=df.pick.str.replace('\u200b', '')
-# df['pick']=pd.to_numeric(df['pick'])
-# df['team_pick'] = 'Pick '+ df['pick'].astype('str').replace('\.0', '', regex=True) + ' - ' +df['team']
-# df=df.loc[~df.team_pick.str.contains('/Colleges')]
-# st.write(df.head(3))
 
 d=pd.merge(df.iloc[0:500].groupby('player').agg({'pick':'mean','player_details':'size'}).reset_index(),
          df.iloc[501:1000].groupby('player').agg({'pick':'mean','player_details':'size'}).reset_index(),
@@ -196,7 +190,6 @@ st.plotly_chart(fig, use_container_width=True)
 df['source_date'] = df['source'] + ' - ' +df['date']
 draft = st.selectbox('Pick a draft to view:',df['source_date'].unique())
 
-
 col1, col2, col3 = st.beta_columns((4,4,4))
 df_table=df.loc[df['source_date'] == draft].sort_values('pick',ascending=True).reset_index(drop=True)
 df_table['team'] = ["<img src='" + r.team_img
@@ -206,3 +199,23 @@ for ir, r in df_table.iterrows()]
 df_table['pick'] = df_table['pick'].astype('str').replace('\.0', '', regex=True)
 
 col2.write(df_table[['pick','team','player']].to_html(index=False,escape=False), unsafe_allow_html=True)
+
+
+
+player = st.selectbox('Pick a player to view:',df['player'].unique())
+
+d=df.loc[df.player == player].copy()
+d=d.reset_index(drop=True)
+d['mock_draft'] = d['date'].str[5:]+ ' - ' + d['source']
+fig=px.scatter(d,
+               x='mock_draft',
+               y='pick',
+               color='team',
+               title='Mock Drafts over Time for ' + player)
+fig.update_xaxes(title='Mock Draft / Date', categoryorder='category ascending')
+fig.update_traces(mode='markers',
+                  marker=dict(size=8,
+                              line=dict(width=1,
+                                        color='DarkSlateGrey')))
+fig = update_colors(fig)
+st.plotly_chart(fig, use_container_width=True)
