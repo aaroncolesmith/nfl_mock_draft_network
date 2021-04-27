@@ -220,3 +220,40 @@ fig.update_traces(mode='markers',
 fig = update_colors(fig)
 fig.update_layout({"xaxis"+str(i+1): dict(tickangle = -45) for i in range(7)})
 st.plotly_chart(fig, use_container_width=True)
+
+
+team = st.selectbox('Pick a player to view:',df['team'].unique())
+
+d=df.loc[df.team == team].copy()
+d=d.reset_index(drop=True)
+
+f = lambda x: x["player_details"].partition('|')[0]
+d['position']=d.apply(f, axis=1)
+
+d2=d.groupby(['team_pick','player','position']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False)
+fig=px.bar(d2,
+       orientation='h',
+       y=d2['team_pick'] + ' - ' + d2['player'],
+       color='position',
+       x='cnt',
+       title='How many times a Pick / Team has been mocked to a player')
+
+fig.update_yaxes(title='Pick / Team')
+fig.update_xaxes(title='# of Times Mocked', categoryorder='total ascending')
+fig.update_yaxes(autorange="reversed")
+
+st.plotly_chart(fig, use_container_width=True)
+
+
+d2=d.groupby(['team_pick','position']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False)
+fig=px.bar(d2,
+       orientation='h',
+       y=d2['team_pick'] + ' - ' + d2['position'],
+       x='cnt',
+       title='How many times a Pick / Team has been mocked to a Position')
+
+fig.update_yaxes(title='Pick / Team')
+fig.update_xaxes(title='# of Times Mocked', categoryorder='category ascending')
+fig.update_yaxes(autorange="reversed")
+
+st.plotly_chart(fig, use_container_width=True)
