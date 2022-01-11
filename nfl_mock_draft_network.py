@@ -347,3 +347,15 @@ def app():
 
 
     st.plotly_chart(fig, use_container_width=True)
+
+def hide_footer():
+    hide_footer_style = """
+    <style>
+    .reportview-container .main footer {visibility: hidden;}
+    """
+    st.markdown(hide_footer_style, unsafe_allow_html=True)
+
+if __name__ == "__main__":
+    #execute
+    hide_footer()
+    main()
