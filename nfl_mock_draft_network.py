@@ -165,10 +165,11 @@ def app():
     nt = Network(directed=False,
                 # notebook=True,
                 height="480px",
-                width="620px",
+                # width="620px",
+                width="940px"
                 heading='')
 
-    nt.force_atlas_2based(damping=2)
+    nt.force_atlas_2based(damping=2, spring_length=200)
 
     # icon2 = st.checkbox('Show icons (slows it down a bit)',key='icon2')
 
@@ -204,7 +205,7 @@ def app():
 
     html_file = open('./mock_draft_network.html', 'r', encoding='utf-8')
     source_code = html_file.read()
-    components.html(source_code, height=510,width=640)
+    components.html(source_code, height=510,width=960)
 
 
     fig=px.bar(df.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15),
