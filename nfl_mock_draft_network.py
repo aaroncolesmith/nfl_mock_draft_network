@@ -166,7 +166,7 @@ def app():
                 # notebook=True,
                 height="480px",
                 # width="620px",
-                width="940px"
+                width="940px",
                 heading='')
 
     nt.force_atlas_2based(damping=2, spring_length=200)
