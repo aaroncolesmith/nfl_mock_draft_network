@@ -358,4 +358,4 @@ def hide_footer():
 if __name__ == "__main__":
     #execute
     hide_footer()
-    main()
+    app()
