@@ -6,6 +6,8 @@ import streamlit.components.v1 as components
 import networkx as nx
 import plotly_express as px
 from IPython.core.display import HTML
+import tkinter as tk
+
 
 st.set_page_config(
     page_title='NFL Mock Draft Database',
@@ -54,6 +56,12 @@ def app():
     # st.markdown("<h4 style='text-align: center; color: black;'>Taking a look at a number of public NFL mock drafts to identify trends and relationships</h4>", unsafe_allow_html=True)
 
     st.title('NFL Mock Draft Database')
+    root = tk.Tk()
+
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    st.write(str(screen_width))
+    st.write(str(screen_height))
     st.markdown('Taking a look at a number of public NFL mock drafts to identify trends and relationships')
 
     draft_year = st.selectbox('Draft Year?',
