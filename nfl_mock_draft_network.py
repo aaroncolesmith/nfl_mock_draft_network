@@ -11,7 +11,7 @@ from IPython.core.display import HTML
 st.set_page_config(
     page_title='NFL Mock Draft Database',
     page_icon='football',
-    layout='wide',
+    # layout='wide',
     initial_sidebar_state='collapsed')
 
 def update_colors(fig):
@@ -171,7 +171,7 @@ def app():
                 width="940px",
                 heading='')
 
-    nt.force_atlas_2based(damping=2, spring_length=200)
+    nt.force_atlas_2based(damping=2, spring_length=200, overlap=1)
 
     # icon2 = st.checkbox('Show icons (slows it down a bit)',key='icon2')
 
