@@ -225,7 +225,7 @@ def app():
     html_file = open('./mock_draft_network.html', 'r', encoding='utf-8')
     source_code = html_file.read()
     # components.html(source_code, height=510,width=640)
-    components.html(source_code, height=960,width=960)
+    components.html(source_code, height=960,width=960,scrolling=True)
 
 
     fig=px.bar(df.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15),
