@@ -180,7 +180,7 @@ def app():
                 # width="940px",
                 heading='')
 
-    nt.force_atlas_2based(damping=5, 
+    nt.force_atlas_2based(damping=1, 
         spring_length=100,
         overlap=1
         )
