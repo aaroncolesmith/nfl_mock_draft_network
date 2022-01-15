@@ -164,11 +164,17 @@ def app():
     d['pick_str'] = d['team']+ ' - '+d['cnt'].astype('str')+' times'
     d['player_pick_str'] = d['player']+ ' - '+d['cnt'].astype('str')+' times'
 
+    d['times_picked_log']=np.log2(d['times_picked'])
+    d.loc[d['times_picked_log']<1,'times_picked_log'] = 1
+
+    d['team_times_picked_log']=np.log2(d['team_times_picked'])
+    d.loc[d['team_times_picked_log']<1,'team_times_picked_log'] = 1
+
     nt = Network(directed=False,
                 # notebook=True,
                 height="480px",
-                # width="620px",
-                width="940px",
+                width="620px",
+                # width="940px",
                 heading='')
 
     nt.force_atlas_2based(damping=2, spring_length=200)
@@ -177,19 +183,19 @@ def app():
 
     for i, r in d.iterrows():
         nt.add_node(r['player'],
-                    size=r['times_picked'],
+                    size=r['times_picked_log'],
                     color={'background':'#40D0EF','border':'#03AED3'},
                     title = '<b>'+r['player'] + ' - Picked '+str(r['times_picked'])+'  times </b> <br> ' + d.loc[d.player==r['player']].groupby('player').apply(lambda x: ', <br>'.join(x.pick_str)).to_frame('pick_str').reset_index()['pick_str'].item())
         if icon2:
             nt.add_node(r['team'],
-                        size=r['team_times_picked'],
+                        size=r['team_times_picked_log'],
                         color={'background':'#FA70C8','border':'#EC0498'},
                         shape='image',
                         image =r['team_img'],
                         title='<b>' +r['team'] + ' - ' +str(r['team_times_picked'])+'  total picks</b> <br> ' + d.loc[d.team == r['team']].groupby('team').apply(lambda x: ', <br>'.join(x.player_pick_str)).to_frame('cnt').reset_index()['cnt'].item())
         else:
             nt.add_node(r['team'],
-                        size=r['team_times_picked'],
+                        size=r['team_times_picked_log'],
                         color={'background':'#FA70C8','border':'#EC0498'},
                         # shape='image',
                         # image =r['team_img'],
@@ -207,7 +213,7 @@ def app():
 
     html_file = open('./mock_draft_network.html', 'r', encoding='utf-8')
     source_code = html_file.read()
-    components.html(source_code, height=510,width=960)
+    components.html(source_code, height=510,width=640)
 
 
     fig=px.bar(df.groupby(['team','player']).size().to_frame('cnt').reset_index().sort_values('cnt',ascending=False).head(15),
