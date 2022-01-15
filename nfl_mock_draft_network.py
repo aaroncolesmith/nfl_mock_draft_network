@@ -167,11 +167,11 @@ def app():
 
     d['times_picked_log']=np.log2(d['times_picked'])
     d.loc[d['times_picked_log']<1,'times_picked_log'] = 1
-    d['times_picked_log'] = d['times_picked_log']*4
+    d['times_picked_log'] = d['times_picked_log']*10
 
     d['team_times_picked_log']=np.log2(d['team_times_picked'])
     d.loc[d['team_times_picked_log']<1,'team_times_picked_log'] = 1
-    d['team_times_picked_log'] = d['team_times_picked_log']*4
+    d['team_times_picked_log'] = d['team_times_picked_log']*10
 
     nt = Network(directed=False,
                 # notebook=True,
