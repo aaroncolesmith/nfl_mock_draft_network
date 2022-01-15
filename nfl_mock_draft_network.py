@@ -186,7 +186,7 @@ def app():
     #     )
     
     nt.barnes_hut(
-        spring_length=50,
+        spring_length=25,
     )
 
     # icon2 = st.checkbox('Show icons (slows it down a bit)',key='icon2')
