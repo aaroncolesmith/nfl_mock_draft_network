@@ -185,7 +185,9 @@ def app():
     #     # overlap=1
     #     )
     
-    nt.barnes_hut()
+    nt.barnes_hut(
+        spring_length=50,
+    )
 
     # icon2 = st.checkbox('Show icons (slows it down a bit)',key='icon2')
 
