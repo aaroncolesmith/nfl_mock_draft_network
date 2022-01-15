@@ -180,7 +180,7 @@ def app():
                 # width="940px",
                 heading='')
 
-    nt.force_atlas_2based(damping=0, spring_length=100)
+    nt.force_atlas_2based(damping=10, spring_length=100)
 
     # icon2 = st.checkbox('Show icons (slows it down a bit)',key='icon2')
 
