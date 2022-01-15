@@ -191,19 +191,19 @@ def app():
 
     for i, r in d.iterrows():
         nt.add_node(r['player'],
-                    size=r['times_picked'],
+                    size=r['times_picked_log'],
                     color={'background':'#40D0EF','border':'#03AED3'},
                     title = '<b>'+r['player'] + ' - Picked '+str(r['times_picked'])+'  times </b> <br> ' + d.loc[d.player==r['player']].groupby('player').apply(lambda x: ', <br>'.join(x.pick_str)).to_frame('pick_str').reset_index()['pick_str'].item())
         if icon2:
             nt.add_node(r['team'],
-                        size=r['team_times_picked'],
+                        size=r['team_times_picked_log'],
                         color={'background':'#FA70C8','border':'#EC0498'},
                         shape='image',
                         image =r['team_img'],
                         title='<b>' +r['team'] + ' - ' +str(r['team_times_picked'])+'  total picks</b> <br> ' + d.loc[d.team == r['team']].groupby('team').apply(lambda x: ', <br>'.join(x.player_pick_str)).to_frame('cnt').reset_index()['cnt'].item())
         else:
             nt.add_node(r['team'],
-                        size=r['team_times_picked'],
+                        size=r['team_times_picked_log'],
                         color={'background':'#FA70C8','border':'#EC0498'},
                         # shape='image',
                         # image =r['team_img'],
