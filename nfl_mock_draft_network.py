@@ -219,6 +219,7 @@ def app():
 
 
 # SHOW THE NETWORK GRAPH                       
+    nt.show_buttons()
     nt.show('mock_draft_network.html')
 
     html_file = open('./mock_draft_network.html', 'r', encoding='utf-8')
