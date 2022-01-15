@@ -167,11 +167,11 @@ def app():
 
     d['times_picked_log']=np.log2(d['times_picked'])
     d.loc[d['times_picked_log']<1,'times_picked_log'] = 1
-    d['times_picked_log'] = d['times_picked_log']*2
+    d['times_picked_log'] = d['times_picked_log']*4
 
     d['team_times_picked_log']=np.log2(d['team_times_picked'])
     d.loc[d['team_times_picked_log']<1,'team_times_picked_log'] = 1
-    d['team_times_picked_log'] = d['team_times_picked_log']*2
+    d['team_times_picked_log'] = d['team_times_picked_log']*4
 
     nt = Network(directed=False,
                 # notebook=True,
@@ -180,7 +180,7 @@ def app():
                 # width="940px",
                 heading='')
 
-    nt.force_atlas_2based(damping=2, spring_length=100)
+    nt.force_atlas_2based(damping=2, spring_length=25)
 
     # icon2 = st.checkbox('Show icons (slows it down a bit)',key='icon2')
 
