@@ -61,6 +61,7 @@ def app():
     st.markdown('Taking a look at a number of public NFL mock drafts to identify trends and relationships')
 
     req = requests.get('https://raw.githubusercontent.com/aaroncolesmith/nfl_mock_draft_db/main/last_updated.txt')
+    st.write(req.text)
     last_update = (datetime.datetime.utcnow() - pd.to_datetime(req.text)).total_seconds()
     
     if last_update <60:
