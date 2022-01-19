@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 import numpy as np
+import requests
 from pyvis.network import Network
 from pyvis import network as net
 import streamlit.components.v1 as components
@@ -58,6 +59,16 @@ def app():
     st.title('NFL Mock Draft Database')
 
     st.markdown('Taking a look at a number of public NFL mock drafts to identify trends and relationships')
+
+    req = requests.get('https://raw.githubusercontent.com/aaroncolesmith/nfl_mock_draft_db/main/last_updated.txt')
+    last_update = (datetime.datetime.utcnow() - pd.to_datetime(req.text)).total_seconds()
+    
+    if last_update <60:
+        st.write('Last update: '+str(round(last_update,2))+' seconds ago')
+    elif last_update <3600:
+        st.write('Last update: '+str(round(last_update/60,2))+' minutes ago')
+    else:
+        st.write('Last update: '+str(round(last_update/3600,2))+' hours ago')
 
     draft_year = st.selectbox('Draft Year?',
         ('2022','2021'))
